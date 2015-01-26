@@ -98,19 +98,13 @@ class Application
         options.seconds = time[2] || 0
       end
     end
-
-    begin
-      optparse.parse!
-      if options.hours.nil? && options.minutes.nil? && options.seconds.nil? && options.timeset.nil?
-        puts optparse
-        exit
-      end
-    rescue OptionParser::InvalidArgument, OptionParser::InvalidOption, OptionParser::MissingArgument
-      puts $!.to_s
-      puts optparse
-      exit
-    end
+    optparse.parse!
     options
+
+    raise OptionParser::InvalidArgument if options.hours.nil? && options.minutes.nil? && options.seconds.nil? && options.timeset.nil?
+  rescue OptionParser::InvalidArgument
+    puts optparse
+    exit
   end
 end
 
