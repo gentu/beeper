@@ -11,6 +11,7 @@ class Melody
           i += 1
         end
         send arg
+        sleep Random.rand(180) if (i%3).zero?
       end
     end
     puts "Start \"#{arg}\" melody"
@@ -33,13 +34,13 @@ class Melody
     end
     while freq > 100 do
         freq -= 100
-        unless system "beep -f #{freq} -l 100 >/dev/null"
+        unless system "beep -f #{freq} -l 300 >/dev/null"
           puts "bug freq #{freq}"
         end
     end
     60.times do
-      system "beep -f #{Random.rand(4500) + 1} \
-        -l #{Random.rand(500) + 100} >/dev/null"
+      system "beep -f #{Random.rand(100..4500)} \
+        -l #{Random.rand(100..500)} >/dev/null"
     end
   end
 end
